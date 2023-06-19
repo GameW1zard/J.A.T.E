@@ -26,11 +26,22 @@ warmStrategyCache({
 
 registerRoute(({ request }) => request.mode === 'navigate', pageCache);
 
-// TODO: Implement asset caching
+//Implement asset caching
+
 registerRoute(
-  ({ request }) => ['style', 'script', 'worker'].includes(request.destination),
+  ({ request }) => {
+    console.log(request);
+    return (
+      //css cache
+      request.destination === 'style' ||
+      //JS cache
+      request.destination === 'script'||
+      //Worker cache
+      request.destination === 'worker' 
+    );
+  },
   new StaleWhileRevalidate({
-    cacheName: 'asset-cache',
+    cacheName: 'static-resources',
     plugins: [
       new CacheableResponsePlugin({
         statuses: [0, 200],
@@ -38,28 +49,3 @@ registerRoute(
     ],
   })
 );
-
-
-
-
-// registerRoute(
-//   ({ request }) => {
-//     console.log(request);
-//     return (
-//       //css cache
-//       request.destination === 'style' ||
-//       //JS cache
-//       request.destination === 'script'||
-//       //Worker cache
-//       request.destination === 'worker' 
-//     );
-//   },
-//   new StaleWhileRevalidate({
-//     cacheName: 'static-resources',
-//     plugins: [
-//       new CacheableResponsePlugin({
-//         statuses: [0, 200],
-//       }),
-//     ],
-//   })
-// );
