@@ -95,6 +95,10 @@ h1 {
   transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 
+.hide {
+  display: none;
+}
+
 .btn:hover {
   background-color: #cecece;
   cursor: pointer;

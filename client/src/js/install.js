@@ -22,7 +22,7 @@ butInstall.addEventListener('click', async function () {
 
         window.deferredPrompt = null;
 
-        butInstall.classList.toggle('hidden', true);
+        butInstall.classList.add('hide');
         console.log('PWA was installed');
 });
 
